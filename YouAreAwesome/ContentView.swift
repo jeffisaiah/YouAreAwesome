@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
+    @State private var imageNumber = 0
+    @State private var messageNumber = 0
     var body: some View {
         
         VStack {
@@ -25,26 +27,26 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .foregroundStyle(.red)
+                .multilineTextAlignment(.center)
             
             Spacer()
             
-                Button("Press Me!") {
-                    let message1 = "You are Awesome!"
-                    let message2 = "You are Great!"
-                    let imageString1 = "image0"
-                    let imageString2 = "image1"
+                Button("Show Message") {
+                    let messages: [String] = ["You are Awesome!", "You are Great!", "You are Cool!", "You are the very best!"]
                     
-//                    if message == message1 {
-//                        message = message2
-//                        imageString = imageString2
-//                    } else {
-//                        message = "You are Awesome!"
-//                        imageString = imageString1
-//                    }
+                    message = messages[messageNumber]
+                    messageNumber += 1
                     
-                    message = (message == message1 ? message2 : message1)
-                    imageName = (imageName == "image0" ? "image1" :  "image0")
+                    if messageNumber > messages.count - 1 {
+                        messageNumber = 0
+                    }
                     
+                    imageName = "image\(imageNumber)"
+                    imageNumber += 1
+        
+                    if imageNumber > 9 {
+                        imageNumber = 0
+                    }
                 }
             .buttonStyle(.borderedProminent)
             .font(.title2)
