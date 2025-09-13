@@ -63,30 +63,15 @@ struct ContentView: View {
                                               "You are Cool!",
                                               "You are the very best!"]
                     
-                    var messageNumber: Int
-                    repeat {
-                        messageNumber = Int.random(in: 0...messages.count-1)
-                    } while messageNumber == lastMessageNumber
+                   lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count-1)
+                    message = messages[lastMessageNumber]
                     
-                    message = messages[messageNumber]
-                    lastMessageNumber = messageNumber
+                    lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: numberOfImages-1)
+                    imageName = "image\(lastImageNumber)"
                     
-                    var imageNumber: Int
-                    repeat {
-                        imageNumber = Int.random(in: 0...(numberOfImages-1))
-                    } while imageNumber == lastImageNumber
-                    
-                    imageName = "image\(imageNumber)"
-                    lastImageNumber = imageNumber
-                    
-                    var soundNumber: Int
-                    repeat {
-                        soundNumber = Int.random(in: 0...numberOfSounds-1)
-                    } while soundNumber == lastSoundNumber
-                    
-                    lastSoundNumber = soundNumber
+                    lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBounds: numberOfSounds-1)
                     if soundIsOn {
-                        playSound(soundName: "sound\(soundNumber)")
+                        playSound(soundName: "sound\(lastSoundNumber)")
                     }
             }
                 .buttonStyle(.borderedProminent)
@@ -112,6 +97,14 @@ struct ContentView: View {
         } catch {
             print("😈 ERROR: \(error.localizedDescription) createding audioPlayer")
         }
+    }
+    
+    func nonRepeatingRandom(lastNumber: Int, upperBounds: Int) -> Int{
+        var randNum: Int
+        repeat{
+            randNum = Int.random(in: 0...upperBounds)
+        } while lastNumber == randNum
+        return randNum
     }
 }
 
