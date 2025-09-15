@@ -50,7 +50,7 @@ struct ContentView: View {
                     .border(.blue)
                     .onChange(of: soundIsOn){
                         if audioPlayer != nil && audioPlayer.isPlaying{
-                                audioPlayer.stop()
+                            audioPlayer.stop()
                         }
                     }
                 
@@ -63,7 +63,7 @@ struct ContentView: View {
                                               "You are Cool!",
                                               "You are the very best!"]
                     
-                   lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count-1)
+                    lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count-1)
                     message = messages[lastMessageNumber]
                     
                     lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: numberOfImages-1)
@@ -73,10 +73,11 @@ struct ContentView: View {
                     if soundIsOn {
                         playSound(soundName: "sound\(lastSoundNumber)")
                     }
-            }
+                }
                 .buttonStyle(.borderedProminent)
                 .font(.title2)
             }
+            .tint(.accentColor)
         }
         .padding()
         
@@ -84,9 +85,9 @@ struct ContentView: View {
     
     func playSound (soundName: String) {
         if audioPlayer != nil && audioPlayer.isPlaying{
-                audioPlayer.stop()
+            audioPlayer.stop()
         }
-
+        
         guard let soundFile = NSDataAsset(name: soundName) else {
             print("😈 Could not read file name \(soundName)")
             return
@@ -108,6 +109,11 @@ struct ContentView: View {
     }
 }
 
-#Preview {
+#Preview("Light Mode") {
     ContentView()
+        .preferredColorScheme(.light)
+}
+#Preview("Dark Mode") {
+    ContentView()
+        .preferredColorScheme(.dark)
 }
