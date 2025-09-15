@@ -47,7 +47,6 @@ struct ContentView: View {
                 Text("Sound On:")
                 Toggle("", isOn: $soundIsOn)
                     .labelsHidden()
-                    .border(.blue)
                     .onChange(of: soundIsOn){
                         if audioPlayer != nil && audioPlayer.isPlaying{
                             audioPlayer.stop()
